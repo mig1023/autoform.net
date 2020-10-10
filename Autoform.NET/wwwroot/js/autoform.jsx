@@ -3,7 +3,7 @@
         super(props);
         this.state = {
             error: null,
-            isLoaded: false,
+            loaded: false,
             items: []
         };
     }
@@ -13,33 +13,35 @@
         .then(
             (result) => {
                 this.setState({
-                    isLoaded: true,
-                    items: result.items
+                    loaded: true,
+                    items: result
                 });
             },
             (error) => {
                 this.setState({
-                    isLoaded: true,
+                    loaded: true,
                     error
                 });
             }
         )
     }
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, loaded, items } = this.state;
 
         if (error)
             return <div>Ошибка: {error.message}</div>;
-        else if (!isLoaded)
+        else if (!loaded)
             return <div>Загрузка...</div>;
         else {
             return (
                 <div>
                     <p>My name is {this.props.name}, i'm load:</p>
                     <ul>
-                        { items.map(item => (
-                            <li key={item.name}>{item.name} {item.price}</li>
-                        )) }
+                        {items.map((page, p) => {
+                            return (
+                                page.elements.map((el, i) => <li key={el.name}>{el.name} {el.label}</li>)
+                            );
+                        } ) }
                     </ul>
                 </div>
             );
