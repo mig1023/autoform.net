@@ -39,10 +39,19 @@ namespace Autoform.NET.Models
                 {
                     new Element
                     {
-                        Type = "input",
+                        Type = "text",
                         Name = "text",
                         Label = "Просто пустое поле",
                         Comment = "Текст",
+                        Example = "",
+                        Check = @"",
+                    },
+                    new Element
+                    {
+                        Type = "checkbox",
+                        Name = "checkbox",
+                        Label = "Чекбокс",
+                        Comment = "Комментарий к чекбоксу",
                         Example = "",
                         Check = @"",
                     },

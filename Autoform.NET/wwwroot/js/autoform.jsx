@@ -35,21 +35,31 @@
         else {
             return (
                 <div>
-                    <p>My name is {this.props.name}, i'm load:</p>
-                    <ul>
-                        {items.map((page, p) => {
-                            return (
-                                page.elements.map((el, i) => <li key={el.name}>{el.name} {el.label}</li>)
-                            );
-                        } ) }
-                    </ul>
+                    {items.map((page, p) => {
+                        return (
+                            page.elements.map((el, i) => GetElement(el))
+                        );
+                    } ) }
                 </div>
             );
         }
     }
 }
 
+function GetElement(element) {
+    if (element.type == "input")
+        return (<p>
+            <label>{element.label} : </label>
+            <input type="text" />
+        </p>);
+    else if (element.type == "checkbox")
+        return (<p>
+            <input id="{element.name}" type="checkbox" />
+            <label for="{element.name}">{element.label}</label>
+        </p>);
+}
+
 ReactDOM.render(
-    <Component name="Autoform"/>,
+    <Component/>,
     document.getElementById("content")
 );
