@@ -1,4 +1,22 @@
-﻿class Component extends React.Component {
+﻿class Input extends React.Component {
+    render() {
+        return (<p>
+            <label>{this.props.label} : </label>
+            <input type="text" />
+        </p>)
+    }
+}
+
+class Checkbox extends React.Component {
+    render() {
+        return (<p>
+            <input id={this.props.id} type="checkbox" />
+            <label for={this.props.name}>{this.props.label}</label>
+        </p>)
+    }
+}
+
+class Fields extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,19 +43,28 @@
             }
         )
     }
+    getField(element) {
+        if (element.type == "input")
+            return (<Input label={element.label} />);
+
+        else if (element.type == "checkbox")
+            return (<Checkbox id={element.name} name={element.name} label={element.label} />);
+    }
     render() {
         const { error, loaded, items } = this.state;
 
         if (error)
-            return <div>Ошибка: {error.message}</div>;
+            return <div>Ошибка загрузки: {error.message}</div>;
+
         else if (!loaded)
             return <div>Загрузка...</div>;
+
         else {
             return (
                 <div>
                     {items.map((page, p) => {
                         return (
-                            page.elements.map((el, i) => GetElement(el))
+                            page.elements.map((el, i) => this.getField(el))
                         );
                     } ) }
                 </div>
@@ -46,20 +73,7 @@
     }
 }
 
-function GetElement(element) {
-    if (element.type == "input")
-        return (<p>
-            <label>{element.label} : </label>
-            <input type="text" />
-        </p>);
-    else if (element.type == "checkbox")
-        return (<p>
-            <input id="{element.name}" type="checkbox" />
-            <label for="{element.name}">{element.label}</label>
-        </p>);
-}
-
 ReactDOM.render(
-    <Component/>,
+    <Fields/>,
     document.getElementById("content")
 );
