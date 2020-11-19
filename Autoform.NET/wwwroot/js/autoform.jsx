@@ -1,8 +1,12 @@
 ﻿class Input extends React.Component {
     render() {
+        var inputStyle = {
+            boxShadow: "0px 0px 5px #CCCCCC"
+        };
+
         return (<p>
             <label>{this.props.label} : </label>
-            <input type="text" />
+            <input style={inputStyle} type="text" />
         </p>)
     }
 }
